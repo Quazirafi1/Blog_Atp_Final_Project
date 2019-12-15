@@ -53,6 +53,12 @@
                         <span>Category</span>
                     </a>
                 </li>
+                <li class="{{Request::is('admin/cpost*') ? 'active' : ''}}">
+                    <a href="{{route('admin.post.index')}}">
+                        <i class="material-icons">library_books</i>
+                        <span>Post</span>
+                    </a>
+                </li>
 
 
                 <li class="header">Systems</li>
