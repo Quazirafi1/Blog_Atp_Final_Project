@@ -133,7 +133,7 @@
                 ) {
                     swal(
                         'Cancelled',
-                        'The post remain pending :)',
+                        'The post remains pending',
                         'info'
                     )
                 }
