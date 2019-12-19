@@ -66,6 +66,13 @@
                     </a>
                 </li>
 
+                <li class="{{Request::is('admin/subscriber*') ? 'active' : ''}}">
+                    <a href="{{route('admin.subscriber.index')}}">
+                        <i class="material-icons">subscriptions</i>
+                        <span>Subscribers</span>
+                    </a>
+                </li>
+
                 <li class="header">Systems</li>
                 <li>
                     <a class="dropdown-item" href="{{ route('logout') }}"
