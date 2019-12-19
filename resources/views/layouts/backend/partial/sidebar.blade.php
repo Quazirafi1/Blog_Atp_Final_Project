@@ -53,7 +53,7 @@
                         <span>Category</span>
                     </a>
                 </li>
-                <li class="{{Request::is('admin/cpost*') ? 'active' : ''}}">
+                <li class="{{Request::is('admin/post*') ? 'active' : ''}}">
                     <a href="{{route('admin.post.index')}}">
                         <i class="material-icons">library_books</i>
                         <span>Post</span>
@@ -82,7 +82,12 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-
+                <li class="{{Request::is('author/post*') ? 'active' : ''}}">
+                    <a href="{{route('author.post.index')}}">
+                        <i class="material-icons">library_books</i>
+                        <span>Post</span>
+                    </a>
+                </li>
 
                 <li class="header">Systems</li>
                 <li>

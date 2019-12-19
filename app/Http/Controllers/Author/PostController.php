@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Author;
 
 use App\Category;
-use App\Http\Middleware\Authenticate;
 use App\Post;
 use App\Tag;
 use Brian2694\Toastr\Facades\Toastr;
@@ -23,8 +22,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->get();
-        return view('admin.post.index', compact('posts'));
+        $posts = Auth::User()->posts()->latest()->get();
+        return view('author.post.index', compact('posts'));
     }
 
     /**
@@ -36,7 +35,7 @@ class PostController extends Controller
     {
         $categories = Category::all();
         $tags = Tag::all();
-        return view ('admin.post.create',compact('categories','tags'));
+        return view ('author.post.create',compact('categories','tags'));
     }
 
     /**
@@ -48,9 +47,9 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-           'title' => 'required',
-           'image' => 'required',
-           'categories' => 'required',
+            'title' => 'required',
+            'image' => 'required',
+            'categories' => 'required',
             'tags' => 'required',
             'body' => 'required',
         ]);
@@ -88,14 +87,14 @@ class PostController extends Controller
         }else{
             $post->status = false;
         }
-        $post->is_approved = true;
+        $post->is_approved = false;
         $post->save();
 
         $post->categories()->attach($request->categories);
         $post->tags()->attach($request->tags);
 
         Toastr::success('Post Created Successfully', 'Success');
-        return redirect()->route('admin.post.index');
+        return redirect()->route('author.post.index');
     }
 
     /**
@@ -106,7 +105,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('admin.post.show', compact('post'));
+        return view('author.post.show', compact('post'));
     }
 
     /**
@@ -117,10 +116,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-
         $categories = Category::all();
         $tags = Tag::all();
-        return view ('admin.post.edit',compact('categories','tags', 'post'));
+        return view ('author.post.edit',compact('categories','tags', 'post'));
     }
 
     /**
@@ -178,14 +176,14 @@ class PostController extends Controller
         }else{
             $post->status = false;
         }
-        $post->is_approved = true;
+        $post->is_approved = false;
         $post->save();
 
         $post->categories()->sync($request->categories);
         $post->tags()->sync($request->tags);
 
         Toastr::success('Post Updated Successfully', 'Success');
-        return redirect()->route('admin.post.index');
+        return redirect()->route('author.post.index');
     }
 
     /**
@@ -206,6 +204,6 @@ class PostController extends Controller
 
         $post->delete();
         Toastr::success('Post Deleted Successfully', 'Success');
-        return redirect()->route('admin.post.index');
+        return redirect()->route('author.post.index');
     }
 }
