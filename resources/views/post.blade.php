@@ -48,7 +48,7 @@
 
                             <ul class="tags">
                                 @foreach($post->tags as $tag)
-                                    <li><a href="#">{{ $tag->name }}</a></li>
+                                    <li><a href="{{route('tag.posts',$tag->slug)}}">{{ $tag->name }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -71,7 +71,7 @@
                                         </form>
                                     @endguest
                                 </li>
-                                <li><a href="#"><i class="ion-chatbubble"></i>6</a></li>
+                                <li><a href="#"><i class="ion-chatbubble"></i>{{$post->comments->count()}}</a></li>
                                 <li><a href="#"><i class="ion-eye"></i>{{$post->view_count}}</a></li>
                             </ul>
 
@@ -101,7 +101,7 @@
                             <h4 class="title"><b>CATEGORIES</b></h4>
                             <ul>
                                 @foreach($post->categories as $category)
-                                    <li><a href="#">{{ $category->name }}</a></li>
+                                    <li><a href="{{route('category.posts', $category->slug)}}">{{ $category->name }}</a></li>
                                 @endforeach
                             </ul>
 
@@ -127,7 +127,7 @@
 
                                 <div class="blog-image"><img src="{{ url('storage/post/'. $randompost->image) }}" alt="{{ $randompost->title }}"></div>
 
-                                <a class="avatar" href="#"><img src="{{ url('storage/profile/'.$randompost->user->image) }}" alt="Profile Image"></a>
+                                <a class="avatar" href="{{route('author.profile',$randompost->user->username)}}"><img src="{{ url('storage/profile/'.$randompost->user->image) }}" alt="Profile Image"></a>
 
                                 <div class="blog-info">
 
@@ -151,7 +151,7 @@
                                                 </form>
                                             @endguest
                                         </li>
-                                        <li><a href="#"><i class="ion-chatbubble"></i>6</a></li>
+                                        <li><a href="#"><i class="ion-chatbubble"></i>{{$post->comments->count()}}</a></li>
                                         <li><a href="#"><i class="ion-eye"></i>{{$post->view_count}}</a></li>
                                     </ul>
 
@@ -175,8 +175,8 @@
                         @guest
                             <p>To post a new comment. You need to login first. <a href="{{ route('login') }}">Login</a></p>
                         @else
-                            {{--<form method="post" action="{{ route('comment.store',$post->id) }}">
-                                @csrf--}}
+                            <form method="post" action="{{ route('comment.store',$post->id) }}">
+                                @csrf
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <textarea name="comment" rows="2" class="text-area-messge form-control"
@@ -189,9 +189,10 @@
                                 </div><!-- row -->
                             {{--</form>--}}
                         @endguest
-                    </div><!-- comment-form -->
+                    </div>
+                    <!-- comment-form -->
 
-                    {{--<h4><b>COMMENTS({{ $post->comments()->count() }})</b></h4>
+                    <h4><b>COMMENTS({{ $post->comments()->count() }})</b></h4>
                     @if($post->comments->count() > 0)
                         @foreach($post->comments as $comment)
                             <div class="commnets-area ">
@@ -201,7 +202,7 @@
                                     <div class="post-info">
 
                                         <div class="left-area">
-                                            <a class="avatar" href="#"><img src="{{ Storage::disk('public')->url('profile/'.$comment->user->image) }}" alt="Profile Image"></a>
+                                            <a class="avatar" href="#"><img src="{{ url('storage/profile/'.$comment->user->image) }}" alt="Profile Image"></a>
                                         </div>
 
                                         <div class="middle-area">
@@ -222,11 +223,11 @@
                         <div class="commnets-area ">
 
                             <div class="comment">
-                                <p>No Comment yet. Be the first :)</p>
+                                <p>No Comments Yet</p>
                             </div>
                         </div>
 
-                    @endif--}}
+                    @endif
 
                 </div><!-- col-lg-8 col-md-12 -->
 

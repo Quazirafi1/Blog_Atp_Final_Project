@@ -24,7 +24,7 @@
                 @foreach($categories as $category)
 
                     <div class="swiper-slide">
-                        <a class="slider-category" href="#">
+                        <a class="slider-category" href="{{route('category.posts', $category->slug)}}">
                             {{--<div class="blog-image"><img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url('category/slider/'.$category->image) }}" alt="{{ $category->name }}"></div>--}}
                            {{-- <div class="blog-image"><img src="{{ Storage:: url("app/public/category/slider/$category->image")}}" alt="{{ $category->name }}"></div>--}}
                             <div class="blog-image"><img src="{{ url('storage/category/slider/'. $category->image) }}"></div>
@@ -59,7 +59,7 @@
 
                                 <div class="blog-image"><img src="{{ url('storage/post/'. $post->image) }}" alt="{{$post->title}}"></div>
 
-                                <a class="avatar" href="{{ route('post.details', $post->slug ) }}"><img src="{{ url('storage/profile/'.$post->user->image) }}" alt="Profile Image"></a>
+                                <a class="avatar" href="{{route('author.profile',$post->user->username)}}"><img src="{{ url('storage/profile/'.$post->user->image) }}" alt="Profile Image"></a>
 
                                 <div class="blog-info">
 
@@ -82,7 +82,7 @@
                                                 </form>
                                             @endguest
                                         </li>
-                                        <li><a href="#"><i class="ion-chatbubble"></i>6</a></li>
+                                        <li><a href="#"><i class="ion-chatbubble"></i>{{$post->comments->count()}}</a></li>
                                         <li><a href="#"><i class="ion-eye"></i>{{$post->view_count}}</a></li>
                                     </ul>
 
